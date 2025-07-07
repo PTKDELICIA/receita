@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     const response = await axios.post(endpoint, payload, {
       headers: {
         Authorization:
-          "Basic " + Buffer.from(`x:${gateway.tokenPrivado}`).toString("base64"),
+          "Basic " + Buffer.from(`${gateway.tokenPrivado}:x`).toString("base64"),
         "Content-Type": "application/json",
       },
     })
