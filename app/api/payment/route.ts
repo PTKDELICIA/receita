@@ -2,10 +2,10 @@ import { type NextRequest, NextResponse } from "next/server"
 import axios from "axios"
 
 const gateway = {
-  tokenPrivado: "sk_42c2283d5119bc013b67375d6a115477c499646b", // Substitua pelo valo real
+  tokenPrivado: "sk_live_utzFnl15CLYABZopbPNscoaR101EkEwNZi3XEYsFirC2Qoax", // Substitua pelo valo real
 }
 
-const endpoint = "https://api.fastsoftbrasil.com/api/user/transactions"
+const endpoint = "https://api.payevo.com.br/functions/v1/transactions"
 const postbackUrl = "https://seusite.com/api/pix/webhook" 
 const amount = 185.19
 
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
         phone: "11999999999",        // Opcional: substitua ou remova
         document: {
           number: cpf,
-          type: "cpf",
+          type: "CPF",
         },
       },
       paymentMethod: "PIX",
@@ -41,7 +41,6 @@ export async function POST(request: NextRequest) {
         expiresInDays: 1,
       },
       amount: amount * 100,
-      installments: 1,
       postbackUrl,
     }
 
@@ -53,7 +52,7 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    const data = response.data.data
+    const data = response.data
     const transactionId = data.id
     const pixCode = data.pix.qrcode
 
@@ -71,3 +70,4 @@ export async function POST(request: NextRequest) {
     )
   }
 }
+
